@@ -4,7 +4,22 @@
   <meta charset="UTF-8">
   <title>Primacy Demo</title>
   <link rel="stylesheet" href="style.css">
-  <script src="index.js"></script>
+  <script>
+  function updateTextInput(val) {
+          document.getElementById('textInput').value=val;
+        }
+  </script>
+
+  <script>
+  var remote = require('electron').remote;
+  function handle_submission2() {
+    remote.getGlobal('data2').result = remote.getGlobal('data').end_range-remote.getGlobal('data').start_range;
+    remote.getGlobal('data2').temp_max = document.getElementById('textInput').value;
+
+    alert('Submission Successful! You can move to the next module.');
+
+  }
+  </script>
 </head>
 
 <body>
@@ -13,12 +28,19 @@
       <hr>
       <form action="/input_validation.js" class="input">
         <table class="input_table">
+
           <tr>
             <td>Start - End values from previous tab: </td>
-            <td><input type="text" size = 2></td>
+
+            <td><input type="text" id="result" size = 2 value=""></td>
+            <script>
+            var remote = require('electron').remote;
+
+            document.getElementById('result').value = remote.getGlobal('data').end_range-remote.getGlobal('data').start_range;
+          </script>
           </tr>
           <tr>
-            <td>(Start - End = 0)</td>
+            <td>(Starting - Ending (Range))</td>
           </tr>
         </table>
         </br>
@@ -30,16 +52,18 @@
         <form action="/input_validation.js" class="input">
           <table class="input_table">
             <tr>
-              <td>Temperature Max: </td>
+              <td>Temperature Max (C): </td>
               <td><input type="range" min="0" max="100" value = 50
-                class = "slider"></td>
+                class = "slider" onchange="updateTextInput(this.value);">
+                <input type="text" id="textInput" value="50"></td>
             </tr>
           </table>
           </br>
-          <input type="submit" value="Submit">
+          <input type="button" value="Submit" onclick="handle_submission2()">
         </form>
       </div>
     </div>
+  
   </div>
 
   <div class="tab_container">

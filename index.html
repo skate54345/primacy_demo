@@ -4,7 +4,44 @@
   <meta charset="UTF-8">
   <title>Primacy Demo</title>
   <link rel="stylesheet" href="style.css">
-  <script src="main.js"></script>
+  <script src="chart.js"></script>
+  <script>
+  var remote = require('electron').remote;
+  function handle_submission() {
+    
+    if (document.getElementById('start_range').value == ""){
+      alert("Please put a starting range");
+      return false;
+    }
+
+    if (document.getElementById('start_range').value < 0){
+      alert("Starting range cannot be negative");
+      return false;
+    }
+
+    if (document.getElementById('end_range').value > 100){
+      alert("Ending range cannot be more than 100");
+      return false;
+    }
+
+    if (document.getElementById('end_range').value > 100){
+      alert("Ending range cannot be more than 100");
+      return false;
+    }
+
+    if (document.getElementById('end_range').value == ""){
+      alert("Please put an ending range");
+      return false;
+    }
+    // add file error checking
+
+    remote.getGlobal('data').start_range = document.getElementById('start_range').value;
+    remote.getGlobal('data').end_range = document.getElementById('end_range').value;
+    remote.getGlobal('data').file_path = document.getElementById('file_select').files[0].path;
+
+    alert('Submission Successful! You can move to the next module.');
+  }
+  </script>
 </head>
 
 <body>
@@ -18,19 +55,19 @@
     <div class="box box2">Box 2
       <hr>
       <div class="input_box">
-        <form action="/input_validation.js" class="input">
+        <form class="input">
           <table class="input_table">
             <tr>
               <td>Please enter start of range: </td>
-              <td><input type="text" size = 2></td>
+              <td><input type="text" id="start_range" size = 2></td>
             </tr>
             <tr>
               <td>Please enter end of range: </td>
-              <td><input type="text" size = 2></td>
+              <td><input type="text" id="end_range" size = 2></td>
             </tr>
           </table>
           </br>
-          <input type="submit" value="Submit">
+          <input type="button" value="Submit" onclick="handle_submission()">
         </form>
       </div>
     </div>

@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <title>Primacy Demo</title>
   <link rel="stylesheet" href="style.css">
-  <script src="index.js"></script>
+  <script src="chart.js"></script>
+  <script src="json_prod.js"></script>
 </head>
-
 <body>
   <div class="container">
     <div class="box box1">Box 1
@@ -15,12 +15,14 @@
         <table class="input_table">
           <tr>
             <td>Graph of original file: </td>
-            <td><input type="button" value="view"></td>
+            <td><input type="button" value="view" onclick="openWin()"></td>
           </tr>
         </table>
         </br>
       </form>
     </div>
+
+
     <div class="box box2">Box 2
       <hr>
       <div class="input_box">
@@ -31,7 +33,7 @@
             </tr>
           </table>
           </br>
-          <input type="submit" value="EXIT">
+          <input type="button" value="EXIT" onclick="jsonify(); self.close();">
         </form>
       </div>
     </div>
